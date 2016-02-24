@@ -32,15 +32,15 @@ class Gync {
 			function fetchResult(lastResult) {
 
 				var result = iterator.next(lastResult);
-				if (result.done) {
+				var isPromise = result.value instanceof Promise;
+				if (result.done && !isPromise) {
 					resolve(result.value);
-				} else if (result.value instanceof Promise) {
+				} else if (isPromise && !result.done) {
 					//Is a promise, lets handle it before continue execution
 					result.value.then(fetchResult, onError);
-                } 
-                //else {
-				//	iterator.next(result);
-				//}
+                } else {
+					result.value.then(resolve, reject);
+				}
 			}
 
 			function onError(error) {
@@ -52,3 +52,23 @@ class Gync {
 
 module.exports = Gync;
 
+Gync.run(function* (resume) {
+	function callbackTest(cb) {
+		setTimeout(function() {
+			cb(null, true);
+		}, 200);
+	}
+	function promiseTest() {
+		return new Promise(function(resolve, reject) {
+			setTimeout(function() {
+				resolve(true);
+			}, 200);
+		});
+	}
+
+	return promiseTest()
+}).then(function(result) {
+	console.log(`OK: `, result);
+}, function(error) {
+	throw error;
+});
