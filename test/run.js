@@ -87,5 +87,27 @@ describe('Gync', function() {
 			}
 		});
 
+		it('should resolve the promise and return the value if generator returns a promise', function(done) {
+			Gync.run(function* () {
+				function promiseTest() {
+					return new Promise(function(resolve) {
+						setTimeout(function() {
+							resolve(true);
+						}, 200);
+					});
+				}
+
+				return promiseTest()
+			}).then(onResolve, onReject);
+
+			function onResolve(result) {
+				if (result) done();
+			}
+
+			function onReject(error) {
+				throw error;
+			}
+		});
+
 	});
 });
