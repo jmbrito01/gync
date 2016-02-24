@@ -4,10 +4,19 @@ class Gync {
 	constructor(opts) {
         
 	}
+
+	static *fetch(promises) {
+		let result = [];
+		for (let each of promises) {
+			result.push(yield each);
+		}
+
+		return result;
+	}
        
     static run(args, generator) {
 		return new Promise(function (resolve, reject) {
-			var Generator = (function*() {}).constructor;
+			let Generator = (function*() {}).constructor;
 			if (args === undefined) {
 				reject('No generator specified to be run');
 				throw "No generator specified to be run";
@@ -21,7 +30,7 @@ class Gync {
 
 			//Initialize the iterator and fetch the first result
 			args.push(resume);
-			var iterator = generator.apply(generator, args);
+			let iterator = generator.apply(generator, args);
 			fetchResult();
 
 			function resume(err, result) {
@@ -30,8 +39,8 @@ class Gync {
 			}
 
 			function fetchResult(lastResult) {
-				var result = iterator.next(lastResult);
-				var isPromise = result.value instanceof Promise;
+				let result = iterator.next(lastResult);
+				let isPromise = result.value instanceof Promise;
 				if (result.done && !isPromise) {
 					resolve(result.value);
 				} else if (isPromise && !result.done) {
@@ -50,4 +59,3 @@ class Gync {
 }
 
 module.exports = Gync;
-

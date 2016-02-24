@@ -39,9 +39,28 @@ the result of the generator.
 pass to the generator as arguments
 * **generator:** The generator function to be executed
 
+#### Gync.fetch(promises)
+This is a generator helper to be used inside your generators.
+It basically executes all the promises in the array before
+unpause the function
+
+##### Parameters
+* **promises:** An array of promises to be executed
+
+
+### Examples
+This repository has a list of good examples for using it,
+check out the examples directory for the codes, heres a summary
+
+* **Simplest:** The simplest thing you can do with the library,
+the gync hello world.
+* **Fetch:** This is an example for using the fetch function
+of the framework
+
 ### Tests
 We use mocha for testing, to start the tests run `npm test` or
-`mocha test`. There are currently 5 tests written.
+`mocha test`. There are currently 6 tests written and i'll try to contnue making for as the
+library gets more sofisticated.
 
 
 ### License
