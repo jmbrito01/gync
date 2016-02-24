@@ -39,7 +39,9 @@ the result of the generator.
 pass to the generator as arguments
 * **generator:** The generator function to be executed
 
-
+### Tests
+We use mocha for testing, to start the tests run `npm test` or
+`mocha test`. There are currently 5 tests written.
 
 
 ### License

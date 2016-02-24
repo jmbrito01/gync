@@ -21,14 +21,12 @@ class Gync {
 
 			//Initialize the iterator and fetch the first result
 			args.push(resume);
-			var iterator = generator(resume);
+			var iterator = generator.apply(generator, args);
 			fetchResult();
 
-			function resume(err, res) {
+			function resume(err, result) {
 				if (err) onError(err);
-				else {
-					var result = iterator.next(res);
-				}
+				else fetchResult(result);
 			}
 
 			function fetchResult(lastResult) {
@@ -40,9 +38,9 @@ class Gync {
 					//Is a promise, lets handle it before continue execution
 					result.value.then(fetchResult, onError);
                 } 
-                else {
-					iterator.next(result);
-				}
+                //else {
+				//	iterator.next(result);
+				//}
 			}
 
 			function onError(error) {

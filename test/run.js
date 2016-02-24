@@ -69,10 +69,13 @@ describe('Gync', function() {
 		it('should execute the callback using the resume parameter', function(done) {
 			Gync.run(function* (resume) {
 				function callbackTest(cb) {
-					cb(null, true);
+					setTimeout(function() {
+						cb(null, true);
+					}, 200);
 				}
 
-				callbackTest(resume);
+				var result = yield callbackTest(resume);
+				return result;
 			}).then(onResolve, onReject);
 
 			function onResolve(result) {
