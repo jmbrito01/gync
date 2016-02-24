@@ -71,7 +71,7 @@ describe('Gync', function() {
 				function callbackTest(cb) {
 					setTimeout(function() {
 						cb(null, true);
-					}, 200);
+					}, 20);
 				}
 
 				var result = yield callbackTest(resume);
@@ -93,7 +93,7 @@ describe('Gync', function() {
 					return new Promise(function(resolve) {
 						setTimeout(function() {
 							resolve(true);
-						}, 200);
+						}, 20);
 					});
 				}
 

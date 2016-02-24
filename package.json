@@ -4,7 +4,8 @@
   "description": "Asynchronous control flow with generators made easy",
   "main": "index.js",
   "scripts": {
-    "test": "mocha test"
+    "test": "mocha test",
+    "start": "node ."
   },
   "author": "Joao Marcelo Brito",
   "license": "MIT",
