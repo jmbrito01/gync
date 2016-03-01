@@ -34,7 +34,7 @@ Gync.run(function* (resume) {
 Executes a generator synchronously and returns a promise for
 the result of the generator.
 
-##### Parameters
+##### Para meters
 * **args:** An array with the list of values you want to
 pass to the generator as arguments
 * **generator:** The generator function to be executed
@@ -46,6 +46,25 @@ unpause the function
 
 ##### Parameters
 * **promises:** An array of promises to be executed
+
+#### Gync.parallel(promises)
+This generator at first glance may look like Gync.fetch
+ but it isn't, the fetch function waits the first result
+ to start executing the next one and so on, in parallel
+ we wrap Promise.all into the sync flow so the promises are
+ executed in arrival order. But remember, the order that the
+ callbacks arrive does not interfere in the order of the result
+ array.
+
+* **promises:** An array of promises to be execute
+
+### Developer Notes
+
+* If the reference is a generator and not a function
+you can't call it, you have to use it inside the run function
+with the yield*(the asterisk means that you are giving the
+generator after the yield statement permission to yield
+for you)
 
 
 ### Examples
@@ -59,8 +78,14 @@ of the framework
 
 ### Tests
 We use mocha for testing, to start the tests run `npm test` or
-`mocha test`. There are currently 6 tests written and i'll try to contnue making for as the
+`mocha test`. There are currently 8 tests written and i'll try to contnue making for as the
 library gets more sofisticated.
+
+### Changelog
+* **v1.0.1:**
+    * Gsync.parallel generator
+    * fetch and parallel new tests
+
 
 
 ### License

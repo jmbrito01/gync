@@ -1,15 +1,16 @@
 {
-  "name": "gync",
-  "version": "1.0.0",
-  "description": "Asynchronous control flow with generators made easy",
-  "main": "index.js",
-  "scripts": {
-    "test": "mocha test",
-    "start": "node ."
-  },
-  "author": "Joao Marcelo Brito",
-  "license": "MIT",
-  "devDependencies": {
-    "mocha": "^2.4.5"
-  }
+	"name": "gync",
+	"version": "1.0.1",
+	"description": "Asynchronous control flow with generators made easy",
+	"main": "index.js",
+	"scripts": {
+		"test": "mocha test",
+		"start": "node ."
+	},
+	"repository": "https://github.com/jmbrito01/gync",
+	"author": "Joao Marcelo Brito",
+	"license": "MIT",
+	"devDependencies": {
+		"mocha": "^2.4.5"
+	}
 }

@@ -1,5 +1,6 @@
 'use strict';
 
+//TODO: Document class
 class Gync {
 	constructor(opts) {
         
@@ -13,7 +14,12 @@ class Gync {
 
 		return result;
 	}
-       
+
+	static *parallel(promises) {
+		var result = yield Promise.all(promises);
+		return result;
+	}
+
     static run(args, generator) {
 		return new Promise(function (resolve, reject) {
 			let Generator = (function*() {}).constructor;
