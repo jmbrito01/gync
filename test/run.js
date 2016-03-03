@@ -1,3 +1,5 @@
+'use strict';
+
 var Gync = require('../');
 var fs = require('fs');
 
@@ -107,6 +109,38 @@ describe('Gync', function() {
 			function onReject(error) {
 				throw error;
 			}
+		});
+
+		it('should execute a plugin for a specific type of instance', function(done) {
+			class Test {
+				testCall() {
+					return "Hello, world";
+				}
+			}
+			class PluginTest extends Gync.Plugin {
+				getInstance() {
+					return Test;
+				}
+				handle(Value) {
+					return new Promise(function(resolve) {
+						let value = new Value();
+						resolve(value.testCall());
+					});
+				}
+			}
+
+			Gync.run({
+				plugins: [PluginTest]
+			}, function* () {
+				var str = yield Test;
+				return str;
+			}).then(function(str) {
+				if (str === "Hello, world") {
+					done();
+				}
+			}, function(error) {
+				throw error;
+			});
 		});
 
 	});

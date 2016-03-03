@@ -28,15 +28,62 @@ Gync.run(function* (resume) {
 });
 ```
 
+### Plugins
+Gync from version 1.0.2 on accepts plugins to it's asynchronous
+handler, here we describe a little about how it works.
+
+**When to use?** Plugins are good when you need to handle a
+specific type of async operation that gync does not support,
+for example mongoose queries are also promises but not equal
+to the native ones so gync dont recognize it as a promise.
+
+**How to use?** A plugin is really simple to use, first you'll
+have to create a new class that instances the GyncPlugin.
+It should have basically 2 methods:
+* `getInstance()` method should return a instance. This instance
+is how Gync recognizes which plugin to activate in a `yield`.
+So if you want to execute this plugin everytime someone yields
+a function, you should return a Function instance
+* `handle(value)` method should return a promise, the value
+passed as argument is the variable which was yield by the user
+
+```
+const Gync = require('gync');
+
+class FirstPlugin extends Gync.Plugin {
+    getInstance() {
+        return Function;
+    }
+
+    handle(value) {
+        return new Promise(function(resolve, reject) {
+            resolve(value.name)
+        });
+    }
+}
+
+Gync.run({
+    plugins: [ FirstPlugin ]
+}, function* () {
+    var msg = yield function HelloWorld() {};
+    return msg;
+}).then(function(msg) {
+    console.log(msg);
+});
+```
+
 ### References
 
-#### Gync.run(args, generator)
+#### Gync.run(opts, generator)
 Executes a generator synchronously and returns a promise for
 the result of the generator.
 
-##### Para meters
-* **args:** An array with the list of values you want to
-pass to the generator as arguments
+##### Parameters
+* **opts:** An object containing the following options
+    * _plugins_: An array containing all plugin classes
+    which will be used in the generator
+    * _args_: An array containing the arguments which will
+    be passed to the generator.
 * **generator:** The generator function to be executed
 
 #### Gync.fetch(promises)
@@ -75,16 +122,20 @@ check out the examples directory for the codes, heres a summary
 the gync hello world.
 * **Fetch:** This is an example for using the fetch function
 of the framework
+* **Plugin:** This is a simple plugin for Gync for handling mongoose
+query promises
 
 ### Tests
 We use mocha for testing, to start the tests run `npm test` or
-`mocha test`. There are currently 8 tests written and i'll try to contnue making for as the
+`mocha test`. There are currently 9 tests written and i'll try to contnue making for as the
 library gets more sofisticated.
 
 ### Changelog
 * **v1.0.1:**
     * Gsync.parallel generator
     * fetch and parallel new tests
+* **v1.0.2**
+    * Plugin system added
 
 
 
