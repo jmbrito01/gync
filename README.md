@@ -3,6 +3,14 @@
 Gync is a simple asynchronous control flow framework that
 gives you the hability to handle promises in a syncronous way.
 
+### Installation
+
+Gync is available on npm, to install it just
+
+```
+npm install gync --save
+```
+
 ### Example
 
 ```
@@ -72,6 +80,13 @@ Gync.run({
 });
 ```
 
+**Available plugins:**  For now there's not a lot of 
+plugins built, here i'll try to list the ones i have
+already written or used.
+
+* [gync-mongoose](https://github.com/jmbrito01/gync-mongoose): Handle
+mongoose query promises
+
 ### References
 
 #### Gync.run(opts, generator)
@@ -136,6 +151,8 @@ library gets more sofisticated.
     * fetch and parallel new tests
 * **v1.0.2**
     * Plugin system added
+* **v1.0.3**
+    * Bugfixes related to plugin instances
 
 
 
