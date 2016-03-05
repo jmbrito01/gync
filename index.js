@@ -80,7 +80,7 @@ class Gync {
 						if (!(each instanceof GyncPlugin) && opts.display_alerts) {
 							console.log(`[ GYNC WARNING ] Plugin idx (${idx}) is not a GyncPlugin instance, we recommend you use 'extends' GyncPlugin`);
 						}
-						if (result.value instanceof each.getInstance().constructor) {
+						if (result.value instanceof each.getInstance()) {
 							//This plugin handles the instance of the result
 							each.handle(result.value).then(fetchResult, onError);
 						}
