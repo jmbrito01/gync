@@ -122,7 +122,8 @@ This generator at first glance may look like Gync.fetch
 
 ### Developer Notes
 
-* If the reference is a generator and not a function
+* If the reference is a generator(for example
+Gync.fetch) and not a function
 you can't call it, you have to use it inside the run function
 with the yield*(the asterisk means that you are giving the
 generator after the yield statement permission to yield
