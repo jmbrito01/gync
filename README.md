@@ -1,7 +1,7 @@
 # Gync
 
 Gync is a simple asynchronous control flow framework that
-gives you the hability to handle promises in a syncronous way.
+gives you the hability to handle promises in a synchronous way.
 
 ### Installation
 
@@ -60,7 +60,7 @@ const Gync = require('gync');
 
 class FirstPlugin extends Gync.Plugin {
     getInstance() {
-        return Function;
+        return Function.constructor;
     }
 
     handle(value) {
