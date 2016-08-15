@@ -64,28 +64,34 @@ class Gync {
 			}
 
 			function fetchResult(lastResult) {
-				let result = iterator.next(lastResult);
-				let isPromise = result.value instanceof Promise;
-				if (result.done && !isPromise) {
-					resolve(result.value);
-				} else if (isPromise && !result.done) {
-					//Is a promise, lets handle it before continue execution
-					result.value.then(fetchResult, onError);
-                } else if (isPromise && result.done) {
-					result.value.then(resolve, reject);
-				} else {
-					//No default handler found, lets handle plugins
-					opts.plugins.forEach(function(Each, idx) {
-						var each = new Each();
-						if (!(each instanceof GyncPlugin) && opts.display_alerts) {
-							console.log(`[ GYNC WARNING ] Plugin idx (${idx}) is not a GyncPlugin instance, we recommend you use 'extends' GyncPlugin`);
-						}
-						if (result.value instanceof each.getInstance()) {
-							//This plugin handles the instance of the result
-							each.handle(result.value).then(fetchResult, onError);
-						}
-					});
+				try {
+					let result = iterator.next(lastResult);
+					let isPromise = result.value instanceof Promise;
+					if (result.done && !isPromise) {
+						resolve(result.value);
+					} else if (isPromise && !result.done) {
+						//Is a promise, lets handle it before continue execution
+						result.value.then(fetchResult, onError);
+					} else if (isPromise && result.done) {
+						result.value.then(resolve, reject);
+					} else {
+						//No default handler found, lets handle plugins
+						opts.plugins.forEach(function(Each, idx) {
+							var each = new Each();
+							if (!(each instanceof GyncPlugin) && opts.display_alerts) {
+								console.log(`[ GYNC WARNING ] Plugin idx (${idx}) is not a GyncPlugin instance, we recommend you use 'extends' GyncPlugin`);
+							}
+							if (result.value instanceof each.getInstance()) {
+								//This plugin handles the instance of the result
+								each.handle(result.value).then(fetchResult, onError);
+							}
+						});
 
+					}
+				} catch (e) {
+					console.log(`[ ERROR ] ERROR IN THE GENERATOR!`);
+					console.log(e);
+					throw e;
 				}
 			}
 

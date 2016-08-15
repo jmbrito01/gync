@@ -154,6 +154,8 @@ library gets more sofisticated.
     * Plugin system added
 * **v1.0.3**
     * Bugfixes related to plugin instances
+* **v1.0.4**
+    * Bugfix related with error handling in the generator code.
 
 
 
