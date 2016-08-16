@@ -90,7 +90,7 @@ class Gync {
 					}
 				} catch (e) {
 					console.log(`[ ERROR ] ERROR IN THE GENERATOR!`);
-					console.log(e);
+					console.log(`[ ERROR ] ${e.stack}`);
 					throw e;
 				}
 			}
