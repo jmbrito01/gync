@@ -1,5 +1,6 @@
 # Gync
 
+** This project has been discontinued. You can use native async/await now to do this.**
 Gync is a simple asynchronous control flow framework that
 gives you the hability to handle promises in a synchronous way.
 
